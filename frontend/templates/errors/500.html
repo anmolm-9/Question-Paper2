@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Question Papers{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <div class="error-template">
+        <h1 class="display-1 text-danger">
+            <i class="fas fa-exclamation-circle"></i>
+            500
+        </h1>
+        <h2 class="h1 mb-4">Internal Server Error!</h2>
+        <div class="error-details mb-4">
+            <p class="lead">
+                Oops! Something went wrong on our end.
+            </p>
+            <p class="text-muted">
+                We're experiencing some technical difficulties. Please try again later or contact the administrator if the problem persists.
+            </p>
+        </div>
+        <div class="error-actions mt-5">
+            <a href="{{ url_for('main.home') }}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-home"></i>
+                Go Home
+            </a>
+            <a href="javascript:location.reload()" class="btn btn-outline-secondary btn-lg me-3">
+                <i class="fas fa-redo"></i>
+                Try Again
+            </a>
+            <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-arrow-left"></i>
+                Go Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-template {
+    padding: 60px 15px;
+    text-align: center;
+}
+
+.error-template .display-1 {
+    font-size: 8rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.error-template .h1 {
+    color: #333;
+    font-weight: 400;
+}
+
+.error-details {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.error-actions {
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .error-template .display-1 {
+        font-size: 5rem;
+    }
+    
+    .error-template .h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn-lg {
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+    }
+    
+    .btn-lg:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+</style>
+{% endblock %}

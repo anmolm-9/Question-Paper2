@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Year Papers - Question Papers{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="fas fa-calendar"></i>
+        Year-wise Question Papers
+    </h2>
+    <a href="{{ url_for('main.home') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+</div>
+
+{% if years %}
+    {% for year, courses_data in years.items() %}
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0">
+                    <i class="fas fa-calendar-alt"></i>
+                    Year {{ year }}
+                </h3>
+            </div>
+            <div class="card-body">
+                {% for course_code, semesters in courses_data.items() %}
+                    <div class="course-section mb-4">
+                        <h4 class="course-title">
+                            <i class="fas fa-university text-primary"></i>
+                            {{ course_code }}
+                        </h4>
+                        
+                        <div class="row">
+                            {% for semester, papers in semesters.items() %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card semester-card">
+                                        <div class="card-header bg-light">
+                                            <h5 class="mb-0">
+                                                <i class="fas fa-book"></i>
+                                                Semester {{ semester }}
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            {% for paper in papers %}
+                                                <div class="paper-item mb-3">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <h6 class="mb-1">{{ paper.title }}</h6>
+                                                            <p class="mb-1 text-muted">
+                                                                <i class="fas fa-book-open"></i>
+                                                                {{ paper.subject }}
+                                                            </p>
+                                                            <small class="text-muted">
+                                                                <i class="fas fa-upload"></i>
+                                                                {{ paper.created_at.strftime('%Y-%m-%d') }}
+                                                            </small>
+                                                        </div>
+                                                        <a href="{{ url_for('main.download_paper', paper_id=paper.id) }}" 
+                                                           class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                {% if not loop.last %}
+                                                    <hr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if not loop.last %}
+                        <hr class="my-4">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info text-center">
+        <i class="fas fa-info-circle"></i>
+        No question papers available yet.
+    </div>
+{% endif %}
+{% endblock %}

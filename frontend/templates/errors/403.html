@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Access Denied - Question Papers{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <div class="error-template">
+        <h1 class="display-1 text-warning">
+            <i class="fas fa-lock"></i>
+            403
+        </h1>
+        <h2 class="h1 mb-4">Access Denied!</h2>
+        <div class="error-details mb-4">
+            <p class="lead">
+                You don't have permission to access this resource.
+            </p>
+            <p class="text-muted">
+                {% if current_user.is_authenticated %}
+                    You are logged in as <strong>{{ current_user.username }}</strong>, but you don't have the required permissions for this action.
+                {% else %}
+                    Please log in to access this resource.
+                {% endif %}
+            </p>
+        </div>
+        <div class="error-actions mt-5">
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+            {% endif %}
+            <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary btn-lg me-3">
+                <i class="fas fa-home"></i>
+                Go Home
+            </a>
+            <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-arrow-left"></i>
+                Go Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-template {
+    padding: 60px 15px;
+    text-align: center;
+}
+
+.error-template .display-1 {
+    font-size: 8rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.error-template .h1 {
+    color: #333;
+    font-weight: 400;
+}
+
+.error-details {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.error-actions {
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .error-template .display-1 {
+        font-size: 5rem;
+    }
+    
+    .error-template .h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn-lg {
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+    }
+    
+    .btn-lg:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+</style>
+{% endblock %}
